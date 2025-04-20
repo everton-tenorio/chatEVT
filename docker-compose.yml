@@ -12,6 +12,8 @@ services:
     build: ./backend
     ports:
       - "5000:5000"
+    environment:
+      - TOKEN=${TOKEN}
     #depends_on:
     #  - llama
   #llama:

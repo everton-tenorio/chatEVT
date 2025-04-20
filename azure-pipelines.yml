@@ -35,14 +35,14 @@ steps:
     tags: 'latest'
   displayName: 'Build Backend Docker Image'
 
-- task: AzureWebAppContainer@1
+- task: AzureRmWebAppDeployment@4
   inputs:
-    appName: 'chatEVT'
-    containers:
-      - imageName: 'chatevt-frontend:latest'
-        containerName: 'frontend'
-      - imageName: 'chatevt-backend:latest'
-        containerName: 'backend'
-        env:
-          TOKEN: $(TOKEN)
-  displayName: 'Deploy to Azure App Service'
+    ConnectionType: 'AzureRM'
+    azureSubscription: 'chatEVT-service-connection' # Ex.: chatEVT-service-connection
+    appType: 'webAppContainer'
+    WebAppName: 'chatEVT'
+    DockerNamespace: '' # vazio por conta do uso de imagens locais
+    DockerRepository: '' # vazio
+    DockerImageTag: 'latest'
+    MultiContainerConfigFile: '$(Build.SourcesDirectory)/docker-compose.yml' # Caminho para o docker-compose.yml
+  displayName: 'Deploy to Azure App Service with Docker Compose'
