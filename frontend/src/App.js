@@ -58,7 +58,7 @@ function App() {
     setMessages([...messages, userMessage]);
 
     try {
-      const response = await fetch('https://chatevt.azurewebsites.net:5000/api/chat', {
+      const response = await fetch('http://backend:5000/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ message: input }),

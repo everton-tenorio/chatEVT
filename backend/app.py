@@ -13,6 +13,7 @@ CORS(app, resources={r"/api/*": {"origins": ["http://localhost:3000", "https://c
 def home():
     return "<h1>Acesse: chatevt.azurewebsites.net</h1>"
 
+
 @app.route('/api/chat', methods=['POST'])
 def chat():
     data = request.get_json()
