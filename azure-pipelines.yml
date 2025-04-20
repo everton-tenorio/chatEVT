@@ -4,13 +4,10 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
-variables:
-  - group: chatEVT-secrets
-
 steps:
 - task: NodeTool@0
   inputs:
-    versionSpec: '16.x'
+    versionSpec: '23.x'
   displayName: 'Install Node.js'
 
 - script: |
@@ -22,7 +19,7 @@ steps:
 - task: Docker@2
   inputs:
     command: 'build'
-    repository: 'chatevt-frontend'
+    repository: 'evertonst/chatevt-frontend'
     dockerfile: '$(Build.SourcesDirectory)/frontend/Dockerfile'
     tags: 'latest'
   displayName: 'Build Frontend Docker Image'
@@ -30,19 +27,23 @@ steps:
 - task: Docker@2
   inputs:
     command: 'build'
-    repository: 'chatevt-backend'
+    repository: 'evertonst/chatevt-backend'
     dockerfile: '$(Build.SourcesDirectory)/backend/Dockerfile'
     tags: 'latest'
   displayName: 'Build Backend Docker Image'
 
-- task: AzureRmWebAppDeployment@4
+- task: Docker@2
   inputs:
-    ConnectionType: 'AzureRM'
-    azureSubscription: 'chatEVT-service-connection' # Ex.: chatEVT-service-connection
-    appType: 'webAppContainer'
-    WebAppName: 'chatEVT'
-    DockerNamespace: '' # vazio por conta do uso de imagens locais
-    DockerRepository: '' # vazio
-    DockerImageTag: 'latest'
-    MultiContainerConfigFile: '$(Build.SourcesDirectory)/docker-compose.yml' # Caminho para o docker-compose.yml
-  displayName: 'Deploy to Azure App Service with Docker Compose'
+    command: 'push'
+    repository: 'evertonst/chatevt-frontend'
+    tags: 'latest'
+    containerRegistry: 'dockerHubConnection'
+  displayName: 'Push Frontend Docker Image'
+
+- task: Docker@2
+  inputs:
+    command: 'push'
+    repository: 'evertonst/chatevt-backend'
+    tags: 'latest'
+    containerRegistry: 'dockerHubConnection'
+  displayName: 'Push Backend Docker Image'
