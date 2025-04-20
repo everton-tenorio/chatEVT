@@ -58,7 +58,7 @@ function App() {
     setMessages([...messages, userMessage]);
 
     try {
-      const response = await fetch('http://localhost:5000/api/chat', { // Ajuste para Azure App Service na implantação
+      const response = await fetch('https://chatevt.azurewebsites.net:5000/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ message: input }),
