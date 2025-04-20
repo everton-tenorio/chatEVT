@@ -1,0 +1,114 @@
+@import url('https://fonts.googleapis.com/css2?family=M+PLUS+Code+Latin:wght@100..700&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+/* 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+Fundo mais escuro para modo noturno */
+.dark {
+  background-color: #0f172a; /* Azul escuro profundo */
+}
+
+/* Animação de deslizamento para novos balões */
+@keyframes slideUp {
+  0% {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.animate-slideUp {
+  animation: slideUp 0.5s ease-out forwards;
+}
+
+.logo-image {
+  width: 20px; /* Tamanho ajustável */
+  height: 20px;
+  border-radius: 20%; /* Círculo por padrão; altere para valores menores (ex.: 10px) para quadrado */
+  object-fit: cover; /* Garante que a imagem preencha o espaço sem distorção */
+}
+
+/* Estilo dos balões com ponta */
+.user-balloon {
+  position: relative;
+  border-radius: 12px 12px 0 12px; /* Canto inferior direito reto para a ponta */
+}
+
+.user-balloon::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  right: 10px;
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 8px solid #3b82f6; /* Mesma cor do balão do usuário */
+}
+
+.dark .user-balloon::after {
+  border-top-color: #3b82f6; /* Mantém consistência no modo escuro */
+}
+
+.bot-balloon {
+  position: relative;
+  border-radius: 12px 12px 12px 0; /* Canto inferior esquerdo reto para a ponta */
+  white-space: normal; /* Permite quebra de linha */
+  word-wrap: break-word; /* Garante que palavras longas quebrem */
+}
+
+.bot-balloon::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 10px;
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 8px solid #d1d5db; /* Mesma cor do balão do bot (modo claro) */
+}
+
+.dark .bot-balloon::after {
+  border-top-color: #4b5563; /* Mesma cor do balão do bot (modo escuro) */
+}
+
+/* Estilo do toggle de tema */
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  width: 60px;
+  height: 30px;
+  background-color: #e5e7eb; /* Cinza claro no modo claro */
+  border-radius: 9999px;
+  position: relative;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.dark .theme-toggle {
+  background-color: #1f2937; /* Cinza escuro no modo noturno */
+}
+
+.toggle-circle {
+  width: 24px;
+  height: 24px;
+  background-color: #3b82f6; /* Azul no modo claro */
+  border-radius: 50%;
+  position: absolute;
+  left: 3px;
+  transition: transform 0.3s, background-color 0.3s;
+}
+
+.dark .toggle-circle {
+  transform: translateX(30px);
+  background-color: #93c5fd; /* Azul claro no modo noturno */
+}
+
+.theme-toggle input:checked + .toggle-circle {
+  transform: translateX(30px);
+}
