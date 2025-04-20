@@ -1,0 +1,48 @@
+trigger:
+  - main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  - group: chatEVT-secrets
+
+steps:
+- task: NodeTool@0
+  inputs:
+    versionSpec: '16.x'
+  displayName: 'Install Node.js'
+
+- script: |
+    cd frontend
+    npm install
+    npm run build
+  displayName: 'Build Frontend'
+
+- task: Docker@2
+  inputs:
+    command: 'build'
+    repository: 'chatevt-frontend'
+    dockerfile: '$(Build.SourcesDirectory)/frontend/Dockerfile'
+    tags: 'latest'
+  displayName: 'Build Frontend Docker Image'
+
+- task: Docker@2
+  inputs:
+    command: 'build'
+    repository: 'chatevt-backend'
+    dockerfile: '$(Build.SourcesDirectory)/backend/Dockerfile'
+    tags: 'latest'
+  displayName: 'Build Backend Docker Image'
+
+- task: AzureWebAppContainer@1
+  inputs:
+    appName: 'chatEVT'
+    containers:
+      - imageName: 'chatevt-frontend:latest'
+        containerName: 'frontend'
+      - imageName: 'chatevt-backend:latest'
+        containerName: 'backend'
+        env:
+          TOKEN: $(TOKEN)
+  displayName: 'Deploy to Azure App Service'
