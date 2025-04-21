@@ -33,7 +33,7 @@ def chat():
     # Conectar ao container llama.cpp
     try:
         # Busca resposta mockada ou retorna padrão
-        reply = MOCK_RESPONSES.get(user_message, "Desculpe, não tenho uma resposta para isso. Tente outra pergunta! kkkk. Obs.: Devido aos milhões quase zilhões de acessos, desativamos a LLM por tempo inderteminado.")
+        reply = MOCK_RESPONSES.get(user_message, "Desculpe, não tenho uma resposta para isso. Tente outra pergunta! kkkk. Obs.: Devido aos milhões quase zilhões de acessos, desativamos a LLM por tempo inderteminado. Para reativar/conversar sobre o projeto: https://dev.evttenorio.com")
     
         # reply = prompt(user_message)
 
