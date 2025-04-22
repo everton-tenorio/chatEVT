@@ -33,8 +33,20 @@ def chat():
     # Conectar ao container llama.cpp
     try:
         # Busca resposta mockada ou retorna padrão
-        reply = MOCK_RESPONSES.get(user_message, "Desculpe, não tenho uma resposta para isso. Tente outra pergunta! kkkk. Obs.: Devido aos milhões quase zilhões de acessos, desativamos a LLM por tempo inderteminado. Para reativar/conversar sobre o projeto: https://dev.evttenorio.com")
-    
+        reply = MOCK_RESPONSES.get(user_message, f"`Lamentamos, mas não temos uma resposta para essa pergunta no momento.` 😅" 
+        f"   "
+        f"\n\n"
+        f"\n"
+        f"`Brincadeiras à parte, nosso sistema não foi desativado por \"milhões quase zilhões de acessos\". Este projeto tem como objetivo explorar e demonstrar o poder dos serviços da Azure para implantação de aplicações web de forma eficiente e escalável. Para saber mais sobre como tudo funciona, convido você a visitar o site` [dev.evttenorio.com](https://dev.evttenorio.com)`, onde publicarei um artigo detalhando todas as etapas do projeto.`" 
+        f"   "
+        f"\n"
+        f"\n\n"
+        f"`Atenciosamente, "
+        f"Everton Tenorio."
+        f"  "
+        f""
+        f"#Azure #WebApps #DevOps`")
+
         # reply = prompt(user_message)
 
         #response = requests.post(
